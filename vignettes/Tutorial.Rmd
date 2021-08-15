@@ -21,22 +21,28 @@ library(CSICalc)
 
 ```{r}
 
-Nneg = 15845 + 5 # the 5 who were acute at PC24 get added to denominator (not yet seroconverted)
-X = c(58+11, 80+65, 55+71) + 5 # the five who were acute at PC12 probably won't still be MAA positive at PC24.
-mu2 = c(130, 119, 102)
-cilow2 = c(118, 94, 69)
-cihigh2 = c(142, 144, 159)
-est.inc = X/(mu2/365)/Nneg * 100
+Nneg = 15845
+X = c(58+11)
+
+mu = c(130)
+cilow = c(118)
+cihigh = c(142)
+est.inc = X/(mu/365)/Nneg * 100
 library("CSICalc")
-results2 = estimate_incidence(
-    mu_estimates = mu2,
-    mu_CIs_lower = cilow2,
-    mu_CIs_upper = cihigh2,
+results = estimate_incidence(
+    mu_estimates = mu,
+    mu_CIs_lower = cilow,
+    mu_CIs_upper = cihigh,
     X = X,
     N = rep(Nneg, 3),
     gamma_shape_range = c(0,1000))
 
-round(results2[, 15:16], 2)
+round(results[, 15:16], 2)
 
 ```
+
+Consider the MAA "Viral Load 
+Suppose we have an MAA with an estimated mean window period of `r mu` days (95% confidence interval `r cilow`, `r cihigh` days), and that we apply taht MAA to a 
+
+
 
