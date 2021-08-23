@@ -98,8 +98,8 @@ The following function computes that confidence interval:
 ```{r}
 
 est_and_CI = est.inc(
-    X = X,
-    N0 = N0,
+    X = 69,
+    N0 = 15845,
     mu_estimate = 130,
     mu_shape = prior[1],
     mu_scale = prior[2],
@@ -122,8 +122,8 @@ To do everything in one step, input the confidence interval for $\mu$ into `est.
 ```{r}
 
 est_and_CI_v2 = est.inc(
-    X = X,
-    N0 = N0,
+    X = 69,
+    N0 = 15845,
     mu_estimate = 130,
     mu_CI_low = 118,
     mu_CI_high = 142,
