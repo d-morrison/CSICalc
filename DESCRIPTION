@@ -2,11 +2,12 @@ Package: CSICalc
 Title: An Amazing Shiny App
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "firstname",
-           family = "lastname",
+    person(given = "Doug",
+           family = "Morrison",
            role = c("aut", "cre"),
-           email = "your@email.com")
-Description: What the package does (one paragraph).
+           email = "dmorrison01@ucla.edu")
+Description: Computes incidence rate estimates and confidence intervals from cross-sectional survey data
+URL: https://dmorrison01.github.io/CSICalc, https://github.com/dmorrison01/CSICalc
 License: What license is it under?
 Imports: 
     config (>= 0.3.1),
