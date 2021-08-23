@@ -92,7 +92,7 @@ if $\mu \sim \text{gamma}(\gamma, \beta)$, then
 $$P(X=x) \approx \frac{\Gamma(\gamma + x - 1)}{\Gamma(\gamma)x!} \left(\frac{\beta N_0 I}{\beta N_0 I + 1}\right)^x \left(\frac{1}{\beta N_0 I + 1}\right)^\gamma$$
 
 We can compute a 95% confidence interval for the incidence rate, $I$, by finding $(i_1,i_2)$ such that:
-$P(X\ge x)| I = i_1) = 2.5\%$ and $P(X\le x)| I = i_2) = 2.5\%$.
+$P(X\ge x| I = i_1) = 2.5\%$ and $P(X\le x| I = i_2) = 2.5\%$.
 The following function computes that confidence interval:
 
 ```{r}
