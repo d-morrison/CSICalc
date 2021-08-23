@@ -15,7 +15,7 @@
 #' @return
 #' @export
 #'
-#' @examples
+
 estimate_incidence = function(
   mu_table,
   mu_estimates = mu_table$"mu",
@@ -43,39 +43,6 @@ estimate_incidence = function(
 {
   
   {# functions
-    
-    sum_squares = function(
-      alpha, 
-      lower_CI, 
-      upper_CI, 
-      estimate,
-      confidence_level = .95,
-      
-      percentile = 
-        (1-confidence_level)/2)
-    {
-      
-      lower_quantile = 
-        qgamma(
-          shape = alpha, 
-          scale = estimate/alpha, 
-          p = percentile, 
-          lower = TRUE)
-      
-      upper_quantile = 
-        qgamma(
-          shape = alpha, 
-          scale = estimate/alpha, 
-          p = percentile, 
-          lower = FALSE)
-      
-      SS = 
-        (lower_quantile - lower_CI)^2/lower_CI^2 + 
-        (upper_quantile - upper_CI)^2/upper_CI^2
-      
-      return(SS)
-      
-    }
     
     lower = function(x, X, N, shape, scale, alpha, I = x/100/365, p = 1/((scale*N*I) + 1))
     {
@@ -116,7 +83,7 @@ estimate_incidence = function(
       optimum = optimize(
         sum_squares, 
         interval = gamma_shape_range, 
-        estimate = mu_estimate,
+        mean = mu_estimate,
         lower_CI = mu_CI_lower,
         upper_CI = mu_CI_upper
       )

@@ -1,5 +1,5 @@
 ---
-title: "Tutorial"
+title: "How to use CSICalc"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Tutorial}
@@ -15,34 +15,114 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(CSICalc)
+```{r, include = FALSE}
+
+
+N0 = 15845
+N0_formatted = format(N0, big.mark = ",")
+X = c(58+11)
+N1 = 4376+219
+mu_hat = c(130)
+mu_hat_in_years = round(mu_hat/365,2)
+mu_CI_low = c(118)
+mu_CI_high = c(142)
+est.incidence = X/(mu_hat/365)/N0 * 100
+
 ```
+
+Consider the MAA "LAg < 1.5 OD-n, Viral Load > 1000 copies/mL". The estimated mean window period from Duong et al (2015) was 
+$\hat{\mu} = `r mu_hat`$ days (95% CI `r mu_CI_low`, `r mu_CI_high`); i.e., `r mu_hat_in_years` years.
+
+In the HPTN 071 PC24 cross-section, there were $N_1 = `r N1`$ seropositive individuals, and $X = `r X`$ of these individuals were in the window period for this MAA.
+(One individual did not have a viral load result; for now, let us assume that this individual would have been classified as MAA-negative). 
+There were $N_0 = `r N0_formatted`$ seronegative individuals.
+
+So we estimate incidence as:
+$$\hat{\iota} = \frac{X}{N_0 \times \hat{\mu}} \times 100\% = \frac{`r X`\text{ new seroconversions}}{`r N0_formatted`\text{ persons at-risk} \times `r mu_hat_in_years`\text{ years}} \times 100\%$$
+$$= `r round(est.incidence, 2)`\text{ new seroconversions per 100 person-years}$$
+
+To compute a confidence interval for this incidence estimate, we need to account for the uncertainty in $\hat{\mu}$.
+To do so, we assume a $\text{gamma}(\alpha, \beta)$ prior distribution for $\mu$, with probability density function
+$$p(\mu) = \frac{1}{\beta^\gamma\Gamma(\gamma)} \mu^{\gamma-1}\exp\{-\mu / \beta\}$$
+
+such that $E(\mu) = \gamma\beta = \hat{\mu} = `r mu_hat`\text{ days}$ and $P(\mu \in [`r mu_CI_low`, `r mu_CI_high`]) \approx 0.95$.
+
+We can find the prior parameters $\gamma$ and $\beta$ using the `fit_gamma_distribution()` function:
+
+```{r}
+library(CSICalc)
+prior = fit_gamma_distribution(
+  mean = 130,
+  lower = 118,
+  upper = 142,
+  confidence_level = .95,
+  gamma_shape_range = c(0,1000))
+
+print(prior)
+```
+
+We can check that those parameters produce the specified coverage using the following calculation:
+
+```{r, include = TRUE}
+
+pr1 = pgamma(shape = prior[1], scale = prior[2], q = 142) - 
+  pgamma(shape = prior[1], scale = prior[2], q = 118)
+   
+
+print(pr1)
+```
+
+In other words, if $\gamma = `r round(prior[1], 2)`$ and $\beta = `r round(prior[2],2)`$, then
+$P(\mu \in [`r mu_CI_low`, `r mu_CI_high`]) = `r round(pr1, 3)`$.
+
+Now, let $I$ denote the incidence rate. Then $E[X] \approx N_0I\mu$. If $I\mu$ is small, then 
+the conditional distribution of $X$, given $\mu$, will be approximately a Poisson distribution,
+and the marginal distribution of $X$ (not conditional on $\mu$) will be a negative binomial distribution; specifically,
+if $\mu \sim \text{gamma}(\gamma, \beta)$, then
+
+$$P(X=x) \approx \frac{\Gamma(\gamma + x - 1)}{\Gamma(\gamma)x!} \left(\frac{\beta N_0 I}{\beta N_0 I + 1}\right)^x \left(\frac{1}{\beta N_0 I + 1}\right)^\gamma$$
+
+We can compute a 95% confidence interval for the incidence rate, $I$, by finding $(i_1,i_2)$ such that:
+$P(X\ge x)| I = i_1) = 2.5\%$ and $P(X\le x)| I = i_2) = 2.5\%$.
+The following function computes that confidence interval:
 
 ```{r}
 
-Nneg = 15845
-X = c(58+11)
-
-mu = c(130)
-cilow = c(118)
-cihigh = c(142)
-est.inc = X/(mu/365)/Nneg * 100
-library("CSICalc")
-results = estimate_incidence(
-    mu_estimates = mu,
-    mu_CIs_lower = cilow,
-    mu_CIs_upper = cihigh,
+est_and_CI = est.inc(
     X = X,
-    N = rep(Nneg, 3),
-    gamma_shape_range = c(0,1000))
+    N0 = N0,
+    mu_estimate = 130,
+    mu_shape = prior[1],
+    mu_scale = prior[2],
+    incidence_CI_level = .95)
 
-round(results[, 15:16], 2)
+print(est_and_CI * 100 * 365) # rescale to get infections per 100 person-years
 
 ```
 
-Consider the MAA "Viral Load 
-Suppose we have an MAA with an estimated mean window period of `r mu` days (95% confidence interval `r cilow`, `r cihigh` days), and that we apply taht MAA to a 
+```{r, include = FALSE}
 
+ci1 = round(est_and_CI[-1] * 100 * 365, 2)
+
+```
+
+Thus, given the data described above, our 95% confidence interval for the incidence rate is $(`r ci1[1]`, `r ci1[2]`)$ new infections per 100 person-years.
+
+To do everything in one step, input the confidence interval for $\mu$ into `est.inc()`, like so:
+
+```{r}
+
+est_and_CI_v2 = est.inc(
+    X = X,
+    N0 = N0,
+    mu_estimate = 130,
+    mu_CI_low = 118,
+    mu_CI_high = 142,
+    mu_CI_level = .95,
+    incidence_CI_level = .95)
+
+print(est_and_CI_v2 * 100 * 365) # rescale to get infections per 100 person-years
+
+```
 
 
