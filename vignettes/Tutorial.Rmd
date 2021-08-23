@@ -134,8 +134,9 @@ print(est_and_CI_v2 * 100 * 365) # rescale to get infections per 100 person-year
 
 ```
 
-References:
+## References:
+
+Brookmeyer R. Accounting for follow-up bias in estimation of human immunodeficiency virus incidence rates. JRSS:A 1997; 160:127-140.
 
 Duong YT, Kassanjee R, Welte A, Morgan M, De A, Dobbs T, et al. Recalibration of the limiting antigen avidity EIA to determine mean duration of recent infection in divergent HIV-1 subtypes. PLoS One 2015; 10(2):e0114947.
 
-Brookmeyer R. Accounting for follow-up bias in estimation of human immunodeficiency virus incidence rates. JRSS:A 1997; 160:127-140.
