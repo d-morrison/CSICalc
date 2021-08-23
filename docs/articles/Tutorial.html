@@ -122,7 +122,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">pr1</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.9493664</span></code></pre></div>
 <p>In other words, if <span class="math inline">\(\gamma = 447.81\)</span> and <span class="math inline">\(\beta = 0.29\)</span>, then <span class="math inline">\(P(\mu \in [118, 142]) = 0.949\)</span>.</p>
-<p>Now, let <span class="math inline">\(I\)</span> denote the incidence rate. Then <span class="math inline">\(E[X] \approx N_0I\mu\)</span>. If <span class="math inline">\(I\mu\)</span> is small, then the conditional distribution of <span class="math inline">\(X\)</span>, given <span class="math inline">\(\mu\)</span>, will be approximately a Poisson distribution, and the marginal distribution of <span class="math inline">\(X\)</span> (not conditional on <span class="math inline">\(\mu\)</span>) will be a negative binomial distribution; specifically, if <span class="math inline">\(\mu \sim \text{gamma}(\gamma, \beta)\)</span>, then</p>
+<p>Now, let <span class="math inline">\(I\)</span> denote the incidence rate. Then <span class="math inline">\(E[X] \approx N_0I\mu\)</span> (Brookmeyer 1997). If <span class="math inline">\(I\mu\)</span> is small, then the conditional distribution of <span class="math inline">\(X\)</span>, given <span class="math inline">\(\mu\)</span>, will be approximately a Poisson distribution, and the marginal distribution of <span class="math inline">\(X\)</span> (not conditional on <span class="math inline">\(\mu\)</span>) will be a negative binomial distribution; specifically, if <span class="math inline">\(\mu \sim \text{gamma}(\gamma, \beta)\)</span>, then</p>
 <p><span class="math display">\[P(X=x) \approx \frac{\Gamma(\gamma + x - 1)}{\Gamma(\gamma)x!} \left(\frac{\beta N_0 I}{\beta N_0 I + 1}\right)^x \left(\frac{1}{\beta N_0 I + 1}\right)^\gamma\]</span></p>
 <p>We can compute a 95% confidence interval for the incidence rate, <span class="math inline">\(I\)</span>, by finding <span class="math inline">\((i_1,i_2)\)</span> such that: <span class="math inline">\(P(X\ge x)| I = i_1) = 2.5\%\)</span> and <span class="math inline">\(P(X\le x)| I = i_2) = 2.5\%\)</span>. The following function computes that confidence interval:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -154,6 +154,9 @@
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">est_and_CI_v2</span> <span class="op">*</span> <span class="fl">100</span> <span class="op">*</span> <span class="fl">365</span><span class="op">)</span> <span class="co"># rescale to get infections per 100 person-years</span>
 <span class="co">#&gt;  estimate    CI_low   CI_high </span>
 <span class="co">#&gt; 1.2226618 0.9368141 1.5783551</span></code></pre></div>
+<p>References:</p>
+<p>Duong YT, Kassanjee R, Welte A, Morgan M, De A, Dobbs T, et al. Recalibration of the limiting antigen avidity EIA to determine mean duration of recent infection in divergent HIV-1 subtypes. PLoS One 2015; 10(2):e0114947.</p>
+<p>Brookmeyer R. Accounting for follow-up bias in estimation of human immunodeficiency virus incidence rates. JRSS:A 1997; 160:127-140.</p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -84,7 +84,7 @@ print(pr1)
 In other words, if $\gamma = `r round(prior[1], 2)`$ and $\beta = `r round(prior[2],2)`$, then
 $P(\mu \in [`r mu_CI_low`, `r mu_CI_high`]) = `r round(pr1, 3)`$.
 
-Now, let $I$ denote the incidence rate. Then $E[X] \approx N_0I\mu$. If $I\mu$ is small, then 
+Now, let $I$ denote the incidence rate. Then $E[X] \approx N_0I\mu$ (Brookmeyer 1997). If $I\mu$ is small, then 
 the conditional distribution of $X$, given $\mu$, will be approximately a Poisson distribution,
 and the marginal distribution of $X$ (not conditional on $\mu$) will be a negative binomial distribution; specifically,
 if $\mu \sim \text{gamma}(\gamma, \beta)$, then
@@ -134,4 +134,8 @@ print(est_and_CI_v2 * 100 * 365) # rescale to get infections per 100 person-year
 
 ```
 
+References:
 
+Duong YT, Kassanjee R, Welte A, Morgan M, De A, Dobbs T, et al. Recalibration of the limiting antigen avidity EIA to determine mean duration of recent infection in divergent HIV-1 subtypes. PLoS One 2015; 10(2):e0114947.
+
+Brookmeyer R. Accounting for follow-up bias in estimation of human immunodeficiency virus incidence rates. JRSS:A 1997; 160:127-140.
