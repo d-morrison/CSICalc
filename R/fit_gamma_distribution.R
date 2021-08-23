@@ -6,9 +6,10 @@
 #' @param confidence_level The coverage probability of the confidence interval
 #' @param gamma_shape_range The range of gamma (shape) parameter values to search over (if insufficient, an error will be produced).
 #'
-#' @return
+#' @return a vector containing the estimated shape and scale parameters
 #' @export
 #'
+#' @importFrom stats optimize
 fit_gamma_distribution = function(
   mean,
   lower,
@@ -18,7 +19,7 @@ fit_gamma_distribution = function(
 )
 {
   
-  optimum = optimize(
+  optimum = stats::optimize(
     sum_squares, 
     interval = gamma_shape_range, 
     mean = mean,

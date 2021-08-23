@@ -136,10 +136,10 @@
   <span class='va'>mu_CI_low</span>,
   <span class='va'>mu_CI_high</span>,
   mu_CI_level <span class='op'>=</span> <span class='fl'>0.95</span>,
-  prior <span class='op'>=</span> <span class='fu'><a href='fit_gamma_distribution.html'>fit_gamma_distribution</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='va'>mu_estimate</span>, lower <span class='op'>=</span> <span class='va'>mu_CI_low</span>, upper <span class='op'>=</span>
+  mu_prior <span class='op'>=</span> <span class='fu'><a href='fit_gamma_distribution.html'>fit_gamma_distribution</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='va'>mu_estimate</span>, lower <span class='op'>=</span> <span class='va'>mu_CI_low</span>, upper <span class='op'>=</span>
     <span class='va'>mu_CI_high</span>, confidence_level <span class='op'>=</span> <span class='va'>mu_CI_level</span><span class='op'>)</span>,
-  mu_shape <span class='op'>=</span> <span class='va'>prior</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>,
-  mu_scale <span class='op'>=</span> <span class='va'>prior</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>,
+  mu_shape <span class='op'>=</span> <span class='va'>mu_prior</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>,
+  mu_scale <span class='op'>=</span> <span class='va'>mu_prior</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>,
   incidence_CI_level <span class='op'>=</span> <span class='fl'>0.95</span>,
   alpha <span class='op'>=</span> <span class='fl'>1</span> <span class='op'>-</span> <span class='va'>incidence_CI_level</span>,
   tol <span class='op'>=</span> <span class='fl'>1e-08</span>,
@@ -158,6 +158,10 @@
       <td><p>The number of seronegative participatns in the cross-sectional sample</p></td>
     </tr>
     <tr>
+      <th>mu_estimate</th>
+      <td><p>The estimated mean window period, mu</p></td>
+    </tr>
+    <tr>
       <th>mu_CI_low</th>
       <td><p>The lower confidence limit for the mean window period, mu (can skip this parameter if providing mu_shape and mu_scale)</p></td>
     </tr>
@@ -167,7 +171,11 @@
     </tr>
     <tr>
       <th>mu_CI_level</th>
-      <td><p>The confidence level for the mean window period, mu (can skip this parameter if providing mu_shape and mu_scale)</p></td>
+      <td><p>The confidence level for the mean window period, mu (can skip this parameter if providing `mu_prior`, or `mu_shape` and `mu_scale`)</p></td>
+    </tr>
+    <tr>
+      <th>mu_prior</th>
+      <td><p>The Gamma parameters for the assumed prior distribution on mu (can skip this argument if providing mu_shape and mu_scale directly)</p></td>
     </tr>
     <tr>
       <th>mu_shape</th>

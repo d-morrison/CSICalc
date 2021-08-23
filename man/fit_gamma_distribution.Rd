@@ -24,7 +24,7 @@ fit_gamma_distribution(
 \item{gamma_shape_range}{The range of gamma (shape) parameter values to search over (if insufficient, an error will be produced).}
 }
 \value{
-
+a vector containing the estimated shape and scale parameters
 }
 \description{
 Find gamma distribution parameters to match a point estimate and confidence interval

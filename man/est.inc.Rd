@@ -11,10 +11,10 @@ est.inc(
   mu_CI_low,
   mu_CI_high,
   mu_CI_level = 0.95,
-  prior = fit_gamma_distribution(mean = mu_estimate, lower = mu_CI_low, upper =
+  mu_prior = fit_gamma_distribution(mean = mu_estimate, lower = mu_CI_low, upper =
     mu_CI_high, confidence_level = mu_CI_level),
-  mu_shape = prior[1],
-  mu_scale = prior[2],
+  mu_shape = mu_prior[1],
+  mu_scale = mu_prior[2],
   incidence_CI_level = 0.95,
   alpha = 1 - incidence_CI_level,
   tol = 1e-08,
@@ -26,11 +26,15 @@ est.inc(
 
 \item{N0}{The number of seronegative participatns in the cross-sectional sample}
 
+\item{mu_estimate}{The estimated mean window period, mu}
+
 \item{mu_CI_low}{The lower confidence limit for the mean window period, mu (can skip this parameter if providing mu_shape and mu_scale)}
 
 \item{mu_CI_high}{The upper confidence limit for the mean window period, mu (can skip this parameter if providing mu_shape and mu_scale)}
 
-\item{mu_CI_level}{The confidence level for the mean window period, mu (can skip this parameter if providing mu_shape and mu_scale)}
+\item{mu_CI_level}{The confidence level for the mean window period, mu (can skip this parameter if providing `mu_prior`, or `mu_shape` and `mu_scale`)}
+
+\item{mu_prior}{The Gamma parameters for the assumed prior distribution on mu (can skip this argument if providing mu_shape and mu_scale directly)}
 
 \item{mu_shape}{The shape (gamma) parameter for the prior distribution of the mean window period, mu.}
 

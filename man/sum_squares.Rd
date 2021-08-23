@@ -2,7 +2,7 @@
 % Please edit documentation in R/sum_squares.R
 \name{sum_squares}
 \alias{sum_squares}
-\title{Title}
+\title{Calculate the error in matching a specified confidence interval with a Gamma distribution prior.}
 \usage{
 sum_squares(
   shape,
@@ -14,21 +14,21 @@ sum_squares(
 )
 }
 \arguments{
-\item{shape}{}
+\item{shape}{The shape ("gamma") parameter of a Gamma distribution}
 
-\item{lower_CI}{}
+\item{lower_CI}{The lower confidence limit that we are trying to match}
 
-\item{upper_CI}{}
+\item{upper_CI}{The upper confidence limit that we are trying to match}
 
-\item{mean}{}
+\item{mean}{The mean of the Gamma distribution (= shape * scale)}
 
-\item{confidence_level}{}
+\item{confidence_level}{The confidence level of the confidence interval (1 - alpha)}
 
-\item{percentile}{}
+\item{alpha}{= 1 - `confidence_level`}
 }
 \value{
-
+The sum of relative squared errors between the confidence limits and the quantiles of the fitted distribution.
 }
 \description{
-Title
+Calculate the error in matching a specified confidence interval with a Gamma distribution prior.
 }

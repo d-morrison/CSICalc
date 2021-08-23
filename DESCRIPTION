@@ -6,7 +6,7 @@ Authors@R:
            family = "Morrison",
            role = c("aut", "cre"),
            email = "dmorrison01@ucla.edu")
-Description: Computes incidence rate estimates and confidence intervals from cross-sectional survey data
+Description: Computes incidence rate estimates and confidence intervals from cross-sectional survey data.
 URL: https://dmorrison01.github.io/CSICalc, https://github.com/dmorrison01/CSICalc
 License: MIT + file LICENSE
 Imports: 
